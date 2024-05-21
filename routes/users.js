@@ -14,7 +14,10 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
     },
-    profile: String,
+    profile: {
+        type: String,
+        default: `default.jpg`
+    },
     fullname: String,
     firstname: String,
     lastname: String,

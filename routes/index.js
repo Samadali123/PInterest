@@ -11,8 +11,7 @@ passport.use(new localStrategy(userModel.authenticate()));
 
 
 router.get("/", function(req, res, next) {
-    const error = req.flash(`error`);
-    res.render("index", { error });
+    res.render("index");
 });
 
 
@@ -36,7 +35,7 @@ router.post(`/register`, async function(req, res, next) {
 
         const User = await userModel.findOne({ username: username });
         if (User) {
-            return res.status(401).json({ success: false, message: "User already registered" });
+            return res.status(401).render("user")
         }
 
 
@@ -47,7 +46,7 @@ router.post(`/register`, async function(req, res, next) {
         });
 
     } catch (err) {
-        return res.status(500).json({ success: false, message: err.message });
+        return res.status(500).render("server")
     }
 });
 
@@ -85,22 +84,60 @@ router.get(`/editprofile`, Isloggedin, function(req, res, next) {
     res.render("editprofile", { user });
 });
 
+
 router.post(`/saveprofile`, Isloggedin, async function(req, res, next) {
-    const user = req.user;
-    user.username = req.body.username;
-    user.email = req.body.email;
-    user.firstname = req.body.firstname;
-    user.lastname = req.body.lastname;
-    user.About = req.body.About;
-    user.website = req.body.website;
-    await user.save();
+    try {
+        const user = req.user;
 
-    const loginuser = await userModel
-        .findOne({ username: req.session.passport.user })
-        .populate(`savedpins`);
+        // Update username if provided
+        if (req.body.username) {
+            user.username = req.body.username;
+        }
 
-    res.render(`profile`, { user, loginuser });
+        // Update email if provided
+        if (req.body.email) {
+            user.email = req.body.email;
+        }
+
+        // Update firstname if provided
+        if (req.body.firstname) {
+            user.firstname = req.body.firstname;
+        }
+
+        // Update lastname if provided
+        if (req.body.lastname) {
+            user.lastname = req.body.lastname;
+        }
+
+        // Update About if provided
+        if (req.body.About) {
+            user.About = req.body.About;
+        }
+
+        // Update website if provided
+        if (req.body.website) {
+            user.website = req.body.website;
+        }
+
+        await user.save();
+
+        const loginuser = await userModel
+            .findOne({ username: req.session.passport.user })
+            .populate(`savedpins`);
+
+        res.render(`profile`, { user, loginuser });
+    } catch (error) {
+        // Log the error for debugging purposes
+        console.error(error);
+
+        // Render an error page or send a JSON response
+        // Assuming you have an error page called 'serverError.ejs'
+        res.render('server');
+        // Or, if you prefer to send a JSON response
+        // res.status(500).json({ message: 'An error occurred while saving your profile.' });
+    }
 });
+
 
 router.get(`/createpin`, Isloggedin, async function(req, res, next) {
     const user = req.user;
@@ -213,15 +250,23 @@ router.get(`/board/:pinId/:boardname`, Isloggedin, async function(req, res) {
     res.render(`board`, { allboards, pin, loginuser, user });
 });
 
+router.get("/failed", (req, res) => {
+    res.render("loginerror");
+})
+
+
 router.post(
     `/login`,
     passport.authenticate("local", {
         successRedirect: `/profile`,
-        failureRedirect: `/`,
+        failureRedirect: `/failed`,
         failureFlash: true,
     }),
     function(req, res, next) {}
 );
+
+
+
 
 router.get("/logoutnow", function(req, res, next) {
     req.logout(function(err) {
@@ -429,7 +474,7 @@ router.get(`/search/:query`, Isloggedin, async(req, res) => {
 
         res.json(allusers);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render("server")
     }
 });
 
@@ -440,7 +485,8 @@ router.get(`/search/pin/:pin`, Isloggedin, async(req, res) => {
 
         res.json(allpins);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).render("server")
+
     }
 });
 
@@ -474,7 +520,7 @@ router.get(`/comment/delete/:comment/:pin`, Isloggedin, async(req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).render("server")
     }
 });
 

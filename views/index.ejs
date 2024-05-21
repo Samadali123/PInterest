@@ -8,250 +8,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-
-    <div class="container">
-        <div class="content ">
-            <!--pinterest logo-->
-            <div class="top">
-                <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="img1" />
-
-                <p>Log in to see more</p>
-                <h6>
-                    <% if(error.length > 0){ %>
-                        <strong>Error: <%= error %></strong>
-                        <%  } %>
-                </h6>
+<body class="bg-red-500 min-h-screen flex flex-col">
+    <header class="bg-red-600 text-white p-4">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="Pin Logo" class="w-24 h-24 sm:w-32 sm:h-32">
+                <nav>
+                    <a class="text-white">Login Accounts</a>
+                </nav>
             </div>
-
-            <form action="/login" method="post">
-                <div class="form">
-
-                    <input name="username" type="text" placeholder="username" class="detail" /><br />
-                    <input name="password" type="password" placeholder="Password" class="detail" />
-
-                    <button type="submit" class="btn int">Log in</button>
-
-                    <!-- <a class="mt-4 " style=" text-decoration: underline;" href="/login/federated/google">Sign in with google</a> -->
-
-                </div>
-
-            </form>
-
-            <footer>
-                <p>
-                    By continuing, you agree to Pinterest's
-                    <b>Terms of Service, Privacy policy.</b>
-                </p>
-                <hr />
-                <a href="/createaccount">
-                    <p>Not on Pinterest yet? Sign up</p>
-                </a>
-            </footer>
         </div>
-    </div>
+    </header>
+    <main class="flex-grow overflow-auto">
+        <section class="container mx-auto py-4">
+            <div class="flex flex-col sm:flex-row justify-center items-center">
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold mb-4">Register or Login</h2>
+                        <form action="/login" method="post">
+                            <div class="mb-4">
+                                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                                <input required type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            </div>
+                            <div class="mb-6">
+                                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                                <input required type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
 
+                                <p>Dont have an account ? <a href="/createaccount">Sign Up</a></p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                    Log in
+                                </button>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js">
-    </script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "gilroy";
-        }
-        
-        html,
-        body {
-            width: 100vw;
-            height: 100vh;
-            /* background-color: rgb(231, 231, 231); */
-            overflow: hidden;
-            scroll-behavior: none;
-        }
-        
-        .container {
-            background-color: white;
-            width: 480px;
-            height: 650px;
-            position: absolute;
-            margin: auto;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 10px;
-            box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-        
-        .content {
-            width: 56%;
-            position: absolute;
-            margin: auto;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            text-align: center;
-        }
-        
-        .detail {
-            width: 100%;
-            height: 48px;
-            margin: 5px;
-            padding: 15px;
-            font-size: 15px;
-            color: gray;
-            border: 2px solid rgb(218, 214, 214);
-            border-radius: 15px;
-        }
-        
-        .detail:focus {
-            box-shadow: 0px -7px 3px -2px rgba(15, 91, 231, 0.4), 0px 7px 3px -2px rgba(15, 91, 231, 0.4), 7px 0px 3px -2px rgba(15, 91, 231, 0.4), -7px 0px 3px -2px rgba(15, 91, 231, 0.4);
-            outline: none;
-        }
-        
-        h4 {
-            font-size: 25px;
-            font-weight: 700;
-            position: relative;
-            left: -60px;
-            margin: 5px;
-        }
-        
-        .btn {
-            width: 100%;
-            height: 40px;
-            border: hidden;
-            border-radius: 20px;
-            font-size: 20px;
-            margin: 5px 0px;
-        }
-        
-        .int {
-            background-color: #f30d19;
-            margin: 10px 0px;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        
-        .int:hover {
-            background-color: #df0812;
-        }
-        
-        .or {
-            font-size: 15px;
-            font-weight: 700;
-            margin: 10px 0px;
-        }
-        
-        .fbk {
-            background-color: rgb(9, 128, 240);
-            margin: 5px 0px;
-            font-size: 16px;
-            font-weight: 700;
-        }
-        
-        .fbk a {
-            text-decoration: none;
-            color: white;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        
-        .fbk:hover {
-            background-color: rgb(8, 110, 206);
-        }
-        
-        .ggl {
-            text-align: center;
-            background-color: #ccc;
-        }
-        
-        .ggl a {
-            text-decoration: none;
-            color: black;
-            font-weight: 600;
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
-        
-        .ggl:hover {
-            background-color: #a0a0a0;
-        }
-        
-        .form {
-            margin-top: 90px;
-        }
-        
-        footer {
-            margin-top: 50px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        footer p {
-            font-size: 13px;
-            margin: 10px;
-            opacity: 0.7;
-        }
-        
-        p:last-child {
-            opacity: 1;
-        }
-        
-        hr {
-            width: 50%;
-            opacity: 0.4;
-            margin-left: 25%;
-        }
-        
-        .upbtn {
-            position: relative;
-            top: 50px;
-            left: 140px;
-            font-size: 16px;
-            font-weight: 700;
-            text-align: center;
-            width: 126px;
-            padding: 11px 0px;
-            background-color: rgb(241, 236, 236);
-            border-radius: 20px;
-        }
-        
-        .top {
-            position: relative;
-            width: auto;
-            height: fit-content;
-            overflow: hidden;
-            text-align: center;
-            top: 4%;
-        }
-        
-        .top img {
-            width: 90px;
-            position: relative;
-            left: 27%;
-        }
-        
-        .top p {
-            font-size: 20px;
-            font-weight: 700;
-            color: black;
-        }
-        
-        h6 {
-            position: relative;
-            font-size: 20px;
-            margin-top: 14px;
-        }
-    </style>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+                    <img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="Pin Logo" class="w-full h-auto sm:w-1/2 sm:h-full">
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-red-600 text-white p-4">
+        <div class="container mx-auto">
+            <p>© 2024 Pinterest. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

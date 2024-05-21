@@ -92,14 +92,14 @@
                 <h3 class="text-xl font-medium ">All pins</h3>
 
             </div>
-            <div class="bottom w-full h-[90%] px-16 flex  gap-4 py-5">
+            <div class="bottom w-full h-[90%] px-16 flex justify-center flex-wrap  gap-6 py-5 overflow-x-hidden overflow-y-auto  ">
 
                 <% user.savedpins.forEach(function(elem){ %>
 
 
                     <a href="/openpin/<%= elem._id %>">
                         <div class="pincontainer relative">
-                            <div class="pin w-[20vmax] h-[15vmax] bg-red-600 relative overflow-hidden " style="border-radius: 15px;">
+                            <div class="pin max-w-3xl h-[25rem] bg-red-600 relative overflow-hidden " style="border-radius: 15px;">
                                 <img class="w-full h-full object-cover object-center" src="/images/uploads/<%= elem.image %>" alt="">
                             </div>
 
@@ -169,6 +169,28 @@
             cursor: pointer;
         }
         
+        .bottom::-webkit-scrollbar {
+            width: 5px;
+            /* Full width of the scrollbar */
+        }
+        
+        .bottom::-webkit-scrollbar-track {
+            background: black;
+            /* Color of the tracking area */
+        }
+        
+        .bottom::-webkit-scrollbar-thumb {
+            width: 5px;
+            /* Width of the scrolling handle */
+            background: red;
+            /* Color of the handle */
+        }
+        
+        .bottom::-webkit-scrollbar-thumb:hover {
+            background: darkred;
+            /* Darker shade on hover */
+        }
+        
         #settings {
             z-index: 99999;
             position: absolute;
@@ -205,15 +227,7 @@
             opacity: 1;
         }
         
-        @media screen and (max-width: 680px) {
-            .bottom {
-                flex-direction: column;
-            }
-            .pin {
-                width: 30vmax;
-                height: 25vmax;
-            }
-        }
+        @media screen and (max-width: 680px) {}
     </style>
 
     <script>

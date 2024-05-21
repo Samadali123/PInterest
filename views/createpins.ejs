@@ -89,56 +89,62 @@
         </div>
 
 
-
-        <div class="content-area w-full  relative " style="height: calc(100% - 15%);">
-            <div class="top relative  w-9/12 relative left-1/4 h-[15%]  flex items-center pl-14" style="border:  1px solid rgb(207, 207, 207);">
-                <h2>Create Pin</h2>
-
-
+        <!-- <div class="content-area w-full relative">
+            <div class="top relative w-full md:w-9/12 lg:w-8/12 xl:w-7/12 left-0 md:left-1/4 h-[15%] flex items-center px-4 md:pl-14 border border-gray-200">
+                <h2 class="text-lg md:text-xl xl:text-2xl">Create Pin</h2>
             </div>
-            <div class="bottom relative left-1/4 w-9/12 flex h-full" style="border:  1px solid rgb(207, 207, 207); border-top: none;">
-
-                <div class="left  w-[40%]  h-full  flex items-center justify-center ">
-                    <div class="box w-[75%]  bg-[#E9E9E9] text-center rounded-3xl  h-[85%] flex items-center justify-center flex-col cursor-pointer ">
-                        <i id="upload" class="ri-upload-cloud-fill  text-2xl"></i>
-                        <p class="mt-2  leading-none">Choose a file or drag and drop <br> here</p>
+            <div class="bottom relative w-full md:w-9/12 lg:w-8/12 xl:w-7/12 md:left-1/4 flex flex-col md:flex-row border border-gray-200 border-t-0">
+                <div class="left w-full md:w-[40%] flex items-center justify-center py-10">
+                    <div class="box w-3/4 md:w-3/5 lg:w-[75%] bg-gray-200 text-center rounded-3xl h-[85%] md:h-full flex items-center justify-center flex-col cursor-pointer">
+                        <i id="upload" class="ri-upload-cloud-fill text-2xl"></i>
+                        <p class="mt-2 leading-none">Choose a file or drag and drop here</p>
                     </div>
-
                 </div>
-
-                <div id="data" class="right  w-[60%] h-full overflow-x-hidden overflow-y-auto">
+                <div id="data" class="right w-full md:w-[60%] h-auto md:h-full md:mt-12 overflow-x-hidden overflow-y-auto">
                     <form id="pinuploadform" action="/uploadpin" method="post" enctype="multipart/form-data">
-
-                        <input class="input" id="file" hidden type="file" name="pinimage">
-
-                        <input id="title" name="title" class="input w-3/5 px-3 py-3 rounded-lg mb-6 " type="text" placeholder="Add a title" style="border: 1px solid rgb(205, 205, 205); ">
-
-                        <input id="description" name="description" class="input w-3/5 px-3 py-6 rounded-lg mb-6 " type="text" placeholder="Add a description " style="border: 1px solid rgb(205, 205, 205); ">
-
-
-                        <input id="link" name="link" class="input w-3/5 px-3 py-3 rounded-lg mb-6 " type="text" placeholder="Add a link " style="border: 1px solid rgb(205, 205, 205); ">
-
-
-
-                        <input id="board" name="board" class="input w-3/5 px-3 py-3 rounded-lg  mb-6" type="text" placeholder="Add a Board name" style="border: 1px solid rgb(205, 205, 205); ">
-
-
-
-                        <input id="topics" name="topics" class="input w-3/5 px-3 py-3 rounded-lg mb-6 " type="text" placeholder="Add a suggested topics" style="border: 1px solid rgb(205, 205, 205); ">
-
+                        <input required class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6" id="file" hidden type="file" name="pinimage">
+                        <input required id="title" name="title" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6" type="text" placeholder="Add a title">
+                        <input required id="description" name="description" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6" type="text" placeholder="Add a description">
+                        <input required id="link" name="link" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6" type="text" placeholder="Add a link">
+                        <input required id="board" name="board" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6" type="text" placeholder="Add a Board name">
+                        <input required id="topics" name="topics" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6" type="text" placeholder="Add suggested topics">
                         <div class="save flex items-center gap-5">
-                            <p class="">save changes</p>
-                            <button id="publish" class="px-4 py-2 rounded-3xl  bg-red-600 text-white">Publish</button>
-
+                            <p class="text-sm">Save changes</p>
+                            <button id="publish" class="px-4 py-2 rounded-3xl bg-red-600 text-white md:text-base">Publish</button>
                         </div>
                     </form>
-
                 </div>
-
-
             </div>
+        </div> -->
 
 
+
+        <div class="content-area w-full relative">
+            <div class="top relative w-full md:w-9/12 lg:w-8/12 xl:w-7/12 left-0 md:left-1/4 h-[15%] flex items-center px-4 md:pl-14 border border-gray-200">
+                <h2 class="text-lg md:text-xl xl:text-2xl">Create Pin</h2>
+            </div>
+            <div class="bottom relative w-full md:w-9/12 lg:w-8/12 xl:w-7/12 md:left-1/4 flex flex-col md:flex-row border border-gray-200 border-t-0">
+                <div class="left w-full md:w-[40%] flex items-center justify-center py-10 overflow-auto">
+                    <div class="box w-3/4 md:w-3/5 lg:w-[75%] bg-gray-200 text-center rounded-3xl h-[85%] md:h-full flex items-center justify-center flex-col cursor-pointer">
+                        <i id="upload" class="ri-upload-cloud-fill text-2xl"></i>
+                        <p class="mt-2 leading-none">Choose a file or drag and drop here</p>
+                    </div>
+                </div>
+                <div id="data" class="right w-full md:w-[60%]  md:mt-12 overflow-x-hidden overflow-y-auto">
+                    <form id="pinuploadform" action="/uploadpin" method="post" enctype="multipart/form-data">
+                        <input required class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6 overflow-hidden" id="file" hidden type="file" name="pinimage">
+                        <input required id="title" name="title" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6 overflow-hidden" type="text" placeholder="Add a title">
+                        <input required id="description" name="description" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6 overflow-hidden" type="text" placeholder="Add a description">
+                        <input required id="link" name="link" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6 overflow-hidden" type="text" placeholder="Add a link">
+                        <input required id="board" name="board" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6 overflow-hidden" type="text" placeholder="Add a Board name">
+                        <input required id="topics" name="topics" class="input w-full md:w-3/5 px-3 py-3 rounded-lg mb-4 md:mb-6 overflow-hidden" type="text" placeholder="Add suggested topics">
+                        <div class="save flex items-center gap-5 absolute bottom-5">
+                            <p class="text-sm">Save changes</p>
+                            <button id="publish" class="px-4 py-2 rounded-3xl bg-red-600 text-white md:text-base">Publish</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
 

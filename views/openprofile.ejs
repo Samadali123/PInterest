@@ -144,7 +144,7 @@
 
 
 
-            <div id="createdpins" class="createdpins py-5 h-auto relative w-full  overflow-x-hidden  px-5 pt-4">
+            <div id="createdpins" class="createdpins py-5 h-auto relative w-full  overflow-x-hidden  px-10 pt-4">
 
 
 
@@ -156,7 +156,7 @@
                     <a href="/openpin/<%= pin._id %>">
                         <div class="pincontainer relative inline-block ml-6">
 
-                            <div class="pin w-[215px] h-[320px] overflow-hidden" style="border-radius: 15px;">
+                            <div class="pin w-[250px] h-[320px] overflow-hidden" style="border-radius: 15px;">
                                 <img class="w-full h-full object-cover " src="/images/uploads/<%= pin.image %>" alt="">
                             </div>
 
@@ -171,14 +171,14 @@
             </div>
 
 
-            <div id="savedpins" class="savedpins hidden py-5  relative w-full h-auto overflow-x-hidden overflow-y-auto px-5 pt-4">
+            <div id="savedpins" class="savedpins hidden py-5  relative w-full h-auto overflow-x-hidden overflow-y-auto px-10 pt-4">
 
 
                 <% openusersaved.savedpins.forEach(function(elem){ %>
                     <a href="/openpin/<%= elem._id %>">
                         <div class="pincontainer relative inline-block ml-6 ">
 
-                            <div class="pin w-[215px] h-[320px] overflow-hidden" style="border-radius: 15px;">
+                            <div class="pin w-[250px] h-[320px] overflow-hidden" style="border-radius: 15px;">
                                 <img class="w-full h-full object-cover " src="/images/uploads/<%= elem.image %>" alt="">
                             </div>
 
@@ -315,15 +315,14 @@
             }
             .createdpins {
                 margin-top: 0;
-                max-width: 100%;
-                height: auto;
-                justify-content: center;
                 padding: 0 10px;
                 padding-left: 13px;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .createdpins .pin {
-                width: 90%;
-                height: 30vmax;
                 margin-bottom: 7px;
                 overflow: hidden;
             }
@@ -335,15 +334,13 @@
             .savedpins {
                 position: relative;
                 margin-top: 0;
-                width: 100%;
-                height: auto;
-                justify-content: center;
                 padding: 0 10px;
-                padding-left: 13px;
+                width: full;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             .savedpins .pin {
-                width: 90%;
-                height: 30vmax;
                 margin-bottom: 7px;
                 overflow: hidden;
             }
@@ -383,7 +380,7 @@
 
         document.querySelector("#saved").addEventListener("click", function(dets) {
             document.querySelector("#createdpins").style.display = "none";
-            document.querySelector("#savedpins").style.display = "block";
+            document.querySelector("#savedpins").style.display = "flex";
             document.querySelector("#created").style.border = "none";
             document.querySelector("#saved").style.borderBottom = "3px solid black";
 
@@ -395,7 +392,7 @@
             document.querySelector("#created").style.borderBottom = "3px solid black";
             document.querySelector("#saved").style.border = "none";
             document.querySelector("#savedpins").style.display = "none";
-            document.querySelector("#createdpins").style.display = "block";
+            document.querySelector("#createdpins").style.display = "flex";
 
 
         })

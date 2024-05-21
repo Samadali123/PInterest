@@ -60,7 +60,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
+app.all("*", (req, res) => {
+    res.status(404).render("page")
+})
 
 
 
@@ -87,6 +89,7 @@ app.use(function(err, req, res, next) {
         message: "Something went wrong"
     });
 });
+
 
 
 module.exports = app;

@@ -89,7 +89,7 @@
 
                 <div class="pincover relative">
 
-                    <div class="pin w-[210px] h-[280px] rounded-lg overflow-hidden ">
+                    <div class="pin  max-w-3xl h-[20rem] rounded-lg overflow-hidden ">
                         <img class="w-full h-full object-cover " src="/images/uploads/<%= pin.image %>" alt="">
                     </div>
 
@@ -120,7 +120,7 @@
 
 
             <% if(allboards.length > 0){  %>
-                <div class="options ml-10 mt-1 flex justify-between w-[265px]  ">
+                <div class="options ml-10 mt-1 flex justify-center ">
                     <h3 id="explore" class="mb-4 text-2xl font-medium">more to explore</h3>
                     <i id="down" class="ri-arrow-down-s-line text-2xl  cursor-pointer"></i>
                     <i id="up" class="ri-arrow-up-s-line text-2xl  cursor-pointer" style="display: none;"></i>
@@ -137,12 +137,12 @@
 
 
 
-                            <div class="allpins w-full relative overflow-y-auto pt-8 px-11  ">
+                            <div class="allpins w-full relative flex gap-5 justify-center overflow-y-auto pt-8 px-11  ">
 
 
                                 <% allboards.forEach(function(board){ %>
 
-                                    <div class="pincontainer inline-block mr-7 relative">
+                                    <div class="pincontainer  relative">
                                         <a href="/openpin/<%= board._id %>">
                                             <div id="pin" class="pin w-[260px] h-[176px] bg-red-600 rounded-lg relative ">
                                                 <img class="w-full h-full object-cover rounded-lg " src="/images/uploads/<%= board.image %>" alt="">

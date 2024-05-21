@@ -106,7 +106,7 @@
         </div>
 
 
-        <div class="allpins w-full px-4 flex flex-wrap gap-3" style="height: calc(100% - 15%);
+        <div class="allpins w-full px-9 flex flex-wrap gap-7" style="height: calc(100% - 15%);
     overflow-x :hidden; overflow-y:auto ">
 
 
@@ -115,7 +115,7 @@
 
 
                 <div class="pincontainer relative mb-4 ">
-                    <div class="pin w-[240px] h-[350px] bg-zinc-900 rounded-2xl  relative">
+                    <div class="pin w-[260px] h-[360px] bg-zinc-900 rounded-2xl  relative">
                         <img src="/images/uploads/<%= pin.image %>" alt="">
                     </div>
 
@@ -145,7 +145,7 @@
 
 
                     <a href="/openpin/<%= pin._id %>">
-                        <div class="overlay w-[240px] h-[350px] rounded-2xl  pt-5 ">
+                        <div class="overlay w-[260px] h-[360px] rounded-2xl  pt-5 ">
 
                             <div class="top flex gap-5 px-6">
                                 <h3 class="text-white mt-2 whitespace-nowrap">
@@ -412,10 +412,9 @@
             .allpins .pincontainer {
                 position: relative;
                 margin-left: 10%;
+                width: 320px;
             }
             .pincontainer .pin {
-                width: 90%;
-                height: 30vh;
                 overflow: hidden;
             }
             .pincontainer .pin img {
@@ -424,8 +423,6 @@
                 object-fit: cover;
             }
             .pincontainer .overlay {
-                width: 90%;
-                height: 30vh;
                 overflow: hidden;
             }
             .searchpins {
@@ -503,7 +500,7 @@
             document.querySelector("#search").style.display = "block";
             document.querySelector(".searching").style.display = "none";
             document.querySelector(".searchpins").style.display = "none";
-            document.querySelector(".allpins").style.display = "block";
+            document.querySelector(".allpins").style.display = "flex";
 
 
         })
