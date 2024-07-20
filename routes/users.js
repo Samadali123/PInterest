@@ -1,12 +1,5 @@
 const mongoose = require(`mongoose`);
 
-// mongoose.connect("mongodb://0.0.0.0:27017/Pinterest");
-
-// mongoose.connect("mongodb+srv://samadali0125:Samad@123@cluster0.m1ac8d5.mongodb.net/Pinterest-Clone?retryWrites=true&w=majority&appName=Cluster0").then(function() {
-//     console.log("Db connected Successfully.")
-// }).catch(function(error) {
-//     console.log("There was an Error", error)
-// });
 
 mongoose.connect("mongodb+srv://samadali0125:Samad%40123@cluster0.m1ac8d5.mongodb.net/Pinterest-Clone?retryWrites=true&w=majority&appName=Cluster0").then(function() {
     console.log("Db connected Successfully.")

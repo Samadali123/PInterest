@@ -1,4 +1,0 @@
-// make a page for register page please provide deatils
-// handle pin upload erron handling
-// handle edit profile page error handling 
-// handle 404 page not found
