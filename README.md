@@ -1,4 +1,4 @@
-# Pinterest-like App
+# visionBoard web app 
 
 This project is a web application similar to Pinterest, built using Node.js, Express.js, MongoDB, EJS for templating, Tailwind CSS for styling, and Passport.js for authentication. It includes features for user registration, authentication, creating boards, saving pins, following boards/users, liking pins, exploring content, searching pins/users, editing profiles, commenting on pins, and saving/unsaving pins.
 
