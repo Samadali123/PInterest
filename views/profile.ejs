@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinterest | My Profile</title>
+    <title>visionBoard | My Profile</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div id="settings" class="main-overlay  flex flex-col hidden py-4 pl-4 w-80 rounded-2xl absolute bg-red-600 text-white right-8 top-20 z-50">
+        <div id="settings" class="main-overlay  flex flex-col hidden py-4 pl-4 w-80 rounded-2xl absolute bg-[#FF3131] text-white right-8 top-20 z-50">
             <p class="ml-1">Currently in</p>
             <div class="top w-full mt-3 flex gap-4">
                 <div class="profile w-20 h-20 rounded-full overflow-hidden">
@@ -106,7 +106,7 @@
             </div>
         <% } else { %>
             <div class="savedpins ml-5 mt-2">
-                <div class="allpins bg-red-600 w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
+                <div class="allpins bg-[#FF3131] w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
                     <h3 class="text-white">No pins saved yet.</h3>
                 </div>
             </div>
@@ -116,13 +116,13 @@
             <% if(user.pins.length > 0){ %>
                 <% user.pins.forEach(function(pin){ %>
                     <a id="editpin" href="/edit/<%= pin._id %>">
-                        <div class="create-pin bg-red-600 mb-2 rounded-lg overflow-hidden w-60 h-40">
+                        <div class="create-pin bg-[#FF3131] mb-2 rounded-lg overflow-hidden w-60 h-40">
                             <img src="/images/uploads/<%= pin.image %>" alt="" class="w-full h-full object-cover">
                         </div>
                     </a>
                 <% }) %>
             <% } else { %>
-                <div class="allpins bg-red-600 w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
+                <div class="allpins bg-[#FF3131] w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
                     <h3 class="text-white text-center">No pins created yet.</h3>
                 </div>
             <% } %>

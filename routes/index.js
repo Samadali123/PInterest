@@ -3,20 +3,20 @@ const router = express.Router();
 const userModel = require(`./users`);
 const localStrategy = require(`passport-local`);
 const passport = require("passport");
-const upload = require(`./multer`);
+const upload = require("./multer")
 const pinsModel = require(`./pins`);
 const commentModel = require(`./comments`);
 
 passport.use(new localStrategy(userModel.authenticate()));
 
 
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
     res.render("index");
 });
 
 
 
-router.post(`/register`, async function(req, res, next) {
+router.post(`/register`, async function (req, res, next) {
     const { username, email, fullname, password } = req.body;
 
 
@@ -39,8 +39,8 @@ router.post(`/register`, async function(req, res, next) {
         }
 
 
-        userModel.register(newUser, password).then(function() {
-            passport.authenticate(`local`)(req, res, function() {
+        userModel.register(newUser, password).then(function () {
+            passport.authenticate(`local`)(req, res, function () {
                 res.redirect(`/profile`);
             });
         });
@@ -52,40 +52,49 @@ router.post(`/register`, async function(req, res, next) {
 
 
 
-router.get(`/profile`, Isloggedin, async function(req, res, next) {
+router.get(`/profile`, Isloggedin, async function (req, res, next) {
+  try {
     const user = await userModel
-        .findOne({ username: req.session.passport.user })
-        .populate(`pins`);
-    const loginuser = await userModel
-        .findOne({ username: req.session.passport.user })
-        .populate(`savedpins`);
-    res.render("profile", { user, loginuser });
+    .findOne({ username: req.session.passport.user })
+    .populate(`pins`);
+const loginuser = await userModel
+    .findOne({ username: req.session.passport.user })
+    .populate(`savedpins`);
+res.render("profile", { user, loginuser });
+  } catch (error) {
+     res.render("server")
+  }
 });
 
-router.get(`/createaccount`, function(req, res, next) {
+router.get(`/createaccount`, function (req, res, next) {
     res.render("register");
 });
 
-router.post(
-    `/uploadprofile`,
-    upload.single(`profile`),
-    Isloggedin,
-    async function(req, res, next) {
-        const user = req.user;
-        user.profile = req.file.filename;
-        await user.save();
-
-        res.redirect("/editprofile");
+router.post(  `/uploadprofile`, upload.single(`profile`), Isloggedin, async function (req, res, next) {
+        try {
+            const user = req.user;
+            if(! req.file.path){
+                return res.status(400).json({success: false, message: "please provide image path"})
+            }
+        //     user.profile = req.file.path;
+        // await user.save();
+        // res.redirect("/editprofile");
+        res.json(req.file)
+        } catch (error) {
+             res.json({message : error.message})
+        }
     }
 );
 
-router.get(`/editprofile`, Isloggedin, function(req, res, next) {
+
+
+router.get(`/editprofile`, Isloggedin, function (req, res, next) {
     const user = req.user;
     res.render("editprofile", { user });
 });
 
 
-router.post(`/saveprofile`, Isloggedin, async function(req, res, next) {
+router.post(`/saveprofile`, Isloggedin, async function (req, res, next) {
     try {
         const user = req.user;
 
@@ -139,17 +148,18 @@ router.post(`/saveprofile`, Isloggedin, async function(req, res, next) {
 });
 
 
-router.get(`/createpin`, Isloggedin, async function(req, res, next) {
+router.get(`/createpin`, Isloggedin, async function (req, res, next) {
     const user = req.user;
     res.render(`createpins`, { user });
 });
 
-router.post(
-    `/uploadpin`,
-    upload.single(`pinimage`),
-    Isloggedin,
-    async function(req, res, next) {
+router.post( `/uploadpin`,   upload.single(`pinimage`),  Isloggedin,  async function (req, res, next) {
+     try {
         const loginuser = req.user;
+        if(! req.file.filename){
+            return res.status(400).json({message : "PLease provide path for image"});
+        }
+
         const createdpin = await pinsModel.create({
             title: req.body.title,
             description: req.body.description,
@@ -164,23 +174,25 @@ router.post(
         await loginuser.save();
 
         res.redirect(`/profile`);
+        
+     } catch (error) {
+         res.json({message : error.message})
+     }
     }
 );
 
-router.get(`/home`, Isloggedin, async function(req, res, next) {
+router.get(`/home`, Isloggedin, async function (req, res, next) {
     const user = await userModel
         .findOne({ username: req.session.passport.user })
         .populate(`pins`);
 
     const allpins = await pinsModel.find().populate(`user`);
 
-    console.log(allpins);
-
     res.render(`home`, { allpins, user });
 });
 
 // Save pin route
-router.get("/save/:pinId", Isloggedin, async(req, res) => {
+router.get("/save/:pinId", Isloggedin, async (req, res) => {
     const user = await userModel.findOne({ username: req.session.passport.user });
 
     const pin = await pinsModel.findById({ _id: req.params.pinId });
@@ -206,7 +218,7 @@ router.get("/save/:pinId", Isloggedin, async(req, res) => {
 });
 
 // Unsave pin route
-router.get("/unsave/:pinId", Isloggedin, async(req, res) => {
+router.get("/unsave/:pinId", Isloggedin, async (req, res) => {
     const user = await userModel
         .findOne({ username: req.session.passport.user })
         .populate(`savedpins`);
@@ -228,7 +240,7 @@ router.get("/unsave/:pinId", Isloggedin, async(req, res) => {
     // res.json(user)
 });
 
-router.get(`/board/:pinId/:boardname`, Isloggedin, async function(req, res) {
+router.get(`/board/:pinId/:boardname`, Isloggedin, async function (req, res) {
     // console.log(allboards);
 
     const pin = await pinsModel
@@ -262,14 +274,12 @@ router.post(
         failureRedirect: `/failed`,
         failureFlash: true,
     }),
-    function(req, res, next) {}
+    function (req, res, next) { }
 );
 
 
-
-
-router.get("/logoutnow", function(req, res, next) {
-    req.logout(function(err) {
+router.get("/logoutnow", function (req, res, next) {
+    req.logout(function (err) {
         if (err) {
             return next(err);
         }
@@ -284,7 +294,7 @@ function Isloggedin(req, res, next) {
     res.redirect("/");
 }
 
-router.get(`/:username/savedpins`, Isloggedin, async(req, res, next) => {
+router.get(`/:username/savedpins`, Isloggedin, async (req, res, next) => {
     const user = await userModel
         .findOne({ username: req.session.passport.user })
         .populate(`savedpins`);
@@ -292,7 +302,7 @@ router.get(`/:username/savedpins`, Isloggedin, async(req, res, next) => {
     res.render(`savedpins`, { user });
 });
 
-router.get(`/openpin/:pinId`, Isloggedin, async(req, res) => {
+router.get(`/openpin/:pinId`, Isloggedin, async (req, res) => {
     const openpin = await pinsModel
         .findById({ _id: req.params.pinId })
         .populate(`user`);
@@ -314,7 +324,7 @@ router.get(`/openpin/:pinId`, Isloggedin, async(req, res) => {
 router.get(
     `/follow/:followeruser/:pinId`,
     Isloggedin,
-    async function(req, res, next) {
+    async function (req, res, next) {
         const followeduser = await userModel.findById({
             _id: req.params.followeruser,
         });
@@ -348,7 +358,7 @@ router.get(
     }
 );
 
-router.get(`/profile/:open`, Isloggedin, async function(req, res) {
+router.get(`/profile/:open`, Isloggedin, async function (req, res) {
     const openuser = await userModel
         .findById({ _id: req.params.open })
         .populate(`pins`);
@@ -369,7 +379,7 @@ router.get(`/profile/:open`, Isloggedin, async function(req, res) {
 router.get(
     `/follow/:followeruser`,
     Isloggedin,
-    async function(req, res, next) {
+    async function (req, res, next) {
         const followeduser = await userModel.findById({
             _id: req.params.followeruser,
         });
@@ -403,7 +413,7 @@ router.get(
     }
 );
 
-router.post(`/comment/:pinId`, Isloggedin, async(req, res, next) => {
+router.post(`/comment/:pinId`, Isloggedin, async (req, res, next) => {
     const loginuser = await userModel.findOne({
         username: req.session.passport.user,
     });
@@ -426,7 +436,7 @@ router.post(`/comment/:pinId`, Isloggedin, async(req, res, next) => {
     res.redirect(`/openpin/${req.params.pinId}`);
 });
 
-router.get(`/edit/:pinId`, Isloggedin, async(req, res) => {
+router.get(`/edit/:pinId`, Isloggedin, async (req, res) => {
     const loggedinuser = await userModel.findOne({
         username: req.session.passport.user,
     });
@@ -438,7 +448,7 @@ router.get(`/edit/:pinId`, Isloggedin, async(req, res) => {
     res.render(`editpin`, { editpin, loggedinuser, user });
 });
 
-router.post(`/savepin/:PinId`, Isloggedin, async function(req, res) {
+router.post(`/savepin/:PinId`, Isloggedin, async function (req, res) {
     const savedpin = await pinsModel.findByIdAndUpdate({ _id: req.params.PinId }, {
         title: req.body.title,
         description: req.body.description,
@@ -450,7 +460,7 @@ router.post(`/savepin/:PinId`, Isloggedin, async function(req, res) {
     // res.send("saved successfully")
 });
 
-router.get(`/deletepin/:PinId`, Isloggedin, async function(req, res) {
+router.get(`/deletepin/:PinId`, Isloggedin, async function (req, res) {
     const pintodelete = await pinsModel.findByIdAndDelete({
         _id: req.params.PinId,
     });
@@ -458,16 +468,16 @@ router.get(`/deletepin/:PinId`, Isloggedin, async function(req, res) {
     res.redirect(`/profile`);
 });
 
-router.get(`/add/accounts`, Isloggedin, async(req, res) => {
+router.get(`/add/accounts`, Isloggedin, async (req, res) => {
     const user = req.user;
     res.render(`account`, { user });
 });
 
-router.get(`/logout`, Isloggedin, async(req, res) => {
+router.get(`/logout`, Isloggedin, async (req, res) => {
     res.render(`logoutpage`);
 });
 
-router.get(`/search/:query`, Isloggedin, async(req, res) => {
+router.get(`/search/:query`, Isloggedin, async (req, res) => {
     try {
         const regex = new RegExp(`^${req.params.query}`, "i");
         const allusers = await userModel.find({ username: regex });
@@ -478,7 +488,7 @@ router.get(`/search/:query`, Isloggedin, async(req, res) => {
     }
 });
 
-router.get(`/search/pin/:pin`, Isloggedin, async(req, res) => {
+router.get(`/search/pin/:pin`, Isloggedin, async (req, res) => {
     try {
         const regex = new RegExp(`^${req.params.pin}`, "i");
         const allpins = await pinsModel.find({ board: regex }).populate(`user`);
@@ -490,7 +500,7 @@ router.get(`/search/pin/:pin`, Isloggedin, async(req, res) => {
     }
 });
 
-router.get(`/comment/delete/:comment/:pin`, Isloggedin, async(req, res) => {
+router.get(`/comment/delete/:comment/:pin`, Isloggedin, async (req, res) => {
     try {
         const commentId = req.params.comment;
         const pinId = req.params.pin;
@@ -527,11 +537,12 @@ router.get(`/comment/delete/:comment/:pin`, Isloggedin, async(req, res) => {
 router.post(
     `/comment/edit/:commentId/:openpinId`,
     Isloggedin,
-    async(req, res) => {
+    async (req, res) => {
         const commenttoedit = await commentModel.findByIdAndUpdate({ _id: req.params.commentId }, { text: req.body.editcomment }, { new: true });
 
         res.redirect(`/openpin/${req.params.openpinId}`);
     }
 );
+
 
 module.exports = router;

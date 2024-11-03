@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%= loggedinuser.username %> | edit</title>
-
+       visionBoard |  <%= loggedinuser.username %> | edit</title>
 
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
 
@@ -98,7 +97,7 @@
             <div class="innercontent w-[80%] h-[95%] relative  flex ">
 
                 <div class="left relative w-[40vw] h-[55vh] flex items-center justify-self-center ">
-                    <div class="pin overflow-hidden  relative w-[90%] h-[90%] bg-red-600 rounded-2xl">
+                    <div class="pin overflow-hidden  relative w-[90%] h-[90%] bg-[#FF3131] rounded-2xl">
                         <img class="w-full h-full object-cover " src="/images/uploads/<%= editpin.image %>" alt="">
 
                     </div>
@@ -167,7 +166,7 @@
                         <div class="footer mt-3 relative w-full flex gap-3 py-5">
 
                             <a href="/deletepin/<%= editpin._id %>" class="py-2 px-4  rounded-3xl text-black " style="background-color: rgb(254, 251, 251);">delete</a>
-                            <button id="save" type="submit" class="py-2 px-4  rounded-3xl text-white bg-red-600 ">save</button>
+                            <button id="save" type="submit" class="py-2 px-4  rounded-3xl text-white bg-[#FF3131] ">save</button>
 
 
                         </div>
@@ -201,7 +200,7 @@
         }
         
         #logo {
-            fill: red;
+            fill: #FF3131;
         }
         
         .buttons {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%= user.username %> | savedpins</title>
+        visionBoard |  <%= user.username %> | savedpins</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
@@ -99,7 +99,7 @@
 
                     <a href="/openpin/<%= elem._id %>">
                         <div class="pincontainer relative">
-                            <div class="pin max-w-3xl h-[25rem] bg-red-600 relative overflow-hidden " style="border-radius: 15px;">
+                            <div class="pin max-w-3xl h-[25rem] bg-[#FF3131] relative overflow-hidden " style="border-radius: 15px;">
                                 <img class="w-full h-full object-cover object-center" src="/images/uploads/<%= elem.image %>" alt="">
                             </div>
 
@@ -140,7 +140,7 @@
         }
         
         #logo {
-            fill: red;
+            fill: #FF3131;
         }
         
         .buttons {
@@ -182,7 +182,7 @@
         .bottom::-webkit-scrollbar-thumb {
             width: 5px;
             /* Width of the scrolling handle */
-            background: red;
+            background: #FF3131;
             /* Color of the handle */
         }
         
@@ -196,7 +196,7 @@
             position: absolute;
             right: 3vw;
             top: 9%;
-            background-color: #E60023;
+            background-color: #FF3131;
             color: rgb(255, 255, 255);
         }
         

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>open Boards </title>
+    <title>visionBoard | open Boards </title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -144,7 +144,7 @@
 
                                     <div class="pincontainer  relative">
                                         <a href="/openpin/<%= board._id %>">
-                                            <div id="pin" class="pin w-[260px] h-[176px] bg-red-600 rounded-lg relative ">
+                                            <div id="pin" class="pin w-[260px] h-[176px] bg-[#FF3131] rounded-lg relative ">
                                                 <img class="w-full h-full object-cover rounded-lg " src="/images/uploads/<%= board.image %>" alt="">
 
                                             </div>
@@ -153,7 +153,7 @@
                                         <div class="userdets flex items-center gap-3 mt-2">
 
                                             <a href="/profile/<%= board.user._id %>">
-                                                <div class="profile w-[30px] h-[30px] bg-red-600 rounded-full overflow-hidden ">
+                                                <div class="profile w-[30px] h-[30px] bg-[#FF3131] rounded-full overflow-hidden ">
                                                     <img class="w-full h-full object-cover " src="/images/uploads/<%= board.user.profile %>" alt="">
                                                 </div>
                                             </a>
@@ -201,7 +201,7 @@
             }
             
             #logo {
-                fill: red;
+                fill: #FF3131;
             }
             
             .buttons {

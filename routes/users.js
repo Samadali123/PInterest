@@ -1,9 +1,9 @@
 const mongoose = require(`mongoose`);
 
 
-mongoose.connect("mongodb+srv://samadali0125:Samad%40123@cluster0.m1ac8d5.mongodb.net/Pinterest-Clone?retryWrites=true&w=majority&appName=Cluster0").then(function() {
+mongoose.connect("mongodb+srv://samadali0125:Samad%40123@cluster0.m1ac8d5.mongodb.net/VisionBoard?retryWrites=true&w=majority&appName=Cluster0").then(function () {
     console.log("Db connected Successfully.")
-}).catch(function(error) {
+}).catch(function (error) {
     console.log("There was an Error", error)
 });
 
@@ -23,7 +23,8 @@ const userSchema = mongoose.Schema({
     },
     profile: {
         type: String,
-        default: `default.jpg`
+        // default: `default.jpg`
+        default: "https://res.cloudinary.com/dkkrycya8/image/upload/v1730454271/4a0f8187-7eae-4795-bca3-d79c0ac0b8ce_gv5ngq.jpg"
     },
     fullname: String,
     firstname: String,
@@ -33,21 +34,21 @@ const userSchema = mongoose.Schema({
     pins: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: `pins`,
-    }, ],
+    },],
     savedpins: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: `pins`,
-    }, ],
+    },],
 
     followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: `users`,
-    }, ],
+    },],
 
     following: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: `users`,
-    }, ],
+    },],
 
     socketId: String,
 });
