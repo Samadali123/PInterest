@@ -44,7 +44,7 @@
             <div class="top w-full mt-3 flex gap-4 ">
 
                 <div class="profile w-[4.5vmax] h-[4.5vmax] rounded-full overflow-hidden">
-                    <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profile %>" alt="">
+                    <img class="w-full h-full object-cover" src="<%= user.profile %>" alt="">
                 </div>
 
                 <div class="right mt-1 leading-none">
@@ -90,14 +90,14 @@
                 <div class="pincover relative">
 
                     <div class="pin  max-w-3xl h-[20rem] rounded-lg overflow-hidden ">
-                        <img class="w-full h-full object-cover " src="/images/uploads/<%= pin.image %>" alt="">
+                        <img class="w-full h-full object-cover " src="<%= pin.image %>" alt="">
                     </div>
 
                     <div class="pindets flex gap-3 items-center mt-2 ">
 
                         <a href="/profile/<%= pin.user._id %>">
                             <div class="userprofile w-[35px] h-[35px] rounded-full overflow-hidden cursor-pointer ">
-                                <img class="w-full h-full object-cover" src="/images/uploads/<%= pin.user.profile %>" alt="">
+                                <img class="w-full h-full object-cover" src="<%= pin.user.profile %>" alt="">
                             </div>
                         </a>
                         <a href="/profile/<%= pin.user._id %>">
@@ -145,7 +145,7 @@
                                     <div class="pincontainer  relative">
                                         <a href="/openpin/<%= board._id %>">
                                             <div id="pin" class="pin w-[260px] h-[176px] bg-[#FF3131] rounded-lg relative ">
-                                                <img class="w-full h-full object-cover rounded-lg " src="/images/uploads/<%= board.image %>" alt="">
+                                                <img class="w-full h-full object-cover rounded-lg " src="<%= board.image %>" alt="">
 
                                             </div>
                                         </a>
@@ -154,7 +154,7 @@
 
                                             <a href="/profile/<%= board.user._id %>">
                                                 <div class="profile w-[30px] h-[30px] bg-[#FF3131] rounded-full overflow-hidden ">
-                                                    <img class="w-full h-full object-cover " src="/images/uploads/<%= board.user.profile %>" alt="">
+                                                    <img class="w-full h-full object-cover " src="<%= board.user.profile %>" alt="">
                                                 </div>
                                             </a>
 

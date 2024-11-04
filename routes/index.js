@@ -15,7 +15,6 @@ router.get("/", function (req, res, next) {
 });
 
 
-
 router.post(`/register`, async function (req, res, next) {
     const { username, email, fullname, password } = req.body;
 
@@ -51,7 +50,6 @@ router.post(`/register`, async function (req, res, next) {
 });
 
 
-
 router.get(`/profile`, Isloggedin, async function (req, res, next) {
   try {
     const user = await userModel
@@ -66,9 +64,11 @@ res.render("profile", { user, loginuser });
   }
 });
 
+
 router.get(`/createaccount`, function (req, res, next) {
     res.render("register");
 });
+
 
 router.post(  `/uploadprofile`, upload.single(`profile`), Isloggedin, async function (req, res, next) {
         try {
@@ -76,10 +76,9 @@ router.post(  `/uploadprofile`, upload.single(`profile`), Isloggedin, async func
             if(! req.file.path){
                 return res.status(400).json({success: false, message: "please provide image path"})
             }
-        //     user.profile = req.file.path;
-        // await user.save();
-        // res.redirect("/editprofile");
-        res.json(req.file)
+            user.profile = req.file.path;
+        await user.save();
+        res.redirect("/editprofile");
         } catch (error) {
              res.json({message : error.message})
         }
@@ -156,14 +155,14 @@ router.get(`/createpin`, Isloggedin, async function (req, res, next) {
 router.post( `/uploadpin`,   upload.single(`pinimage`),  Isloggedin,  async function (req, res, next) {
      try {
         const loginuser = req.user;
-        if(! req.file.filename){
+        if(! req.file.path){
             return res.status(400).json({message : "PLease provide path for image"});
         }
 
         const createdpin = await pinsModel.create({
             title: req.body.title,
             description: req.body.description,
-            image: req.file.filename,
+            image: req.file.path,
             link: req.body.link,
             board: req.body.board,
             topics: req.body.topics,

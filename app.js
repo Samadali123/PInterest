@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
 var flash = require(`connect-flash`);
-// const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const pinsRouter = require('./routes/pins');
+const usersRouter = require("./routes/users")
+require("dotenv").config();
+
 
 
 var app = express();
@@ -22,29 +23,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: "syed samad ali",
-    // cookie: { maxAge: 2 * 60 * 60 * 1000 },
-    // store: MongoStore.create({
-    //     mongoUrl: 'mongodb://127.0.0.1:27017/Pinterest',
-    //     autoRemove: 'disabled'
-    // }),
+    cookie: { maxAge: 2 * 60 * 60 * 1000 },
+    store: MongoStore.create({
+        mongoUrl: "mongodb+srv://samadali0125:Samad%40123@cluster0.m1ac8d5.mongodb.net/VisionBoard?retryWrites=true&w=majority&appName=Cluster0",
+        autoRemove: 'disabled'
+    }),
 
 }))
 
-
-// app.use(passport.authenticate('session'));
-
-// passport.serializeUser(function(user, cb) {
-//     process.nextTick(function() {
-//         cb(null, { id: user.id, username: user.username, name: user.name });
-//     });
-// });
-
-
-// passport.deserializeUser(function(user, cb) {
-//     process.nextTick(function() {
-//         return cb(null, user);
-//     });
-// });
 
 
 app.use(passport.initialize());
@@ -59,7 +45,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.all("*", (req, res) => {
     res.status(404).render("page")
 })

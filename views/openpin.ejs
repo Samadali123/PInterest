@@ -46,7 +46,7 @@
             <div class="top w-full mt-3 flex gap-4 ">
 
                 <div class="profile w-[4.5vmax] h-[4.5vmax] rounded-full overflow-hidden">
-                    <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profile %>" alt="">
+                    <img class="w-full h-full object-cover" src="<%= user.profile %>" alt="">
                 </div>
 
                 <div class="right mt-1 leading-none">
@@ -91,7 +91,7 @@
             <div class="right w-[100%] h-[100%] flex gap-4  rounded-lg " style="box-shadow:  1px 2px 2px rgb(201, 201, 201);">
 
                 <div class="pin w-[40vmax]  h-[30vmax]  rounded-3xl overflow-hidden ">
-                    <img class="w-full h-full object-cover" src="/images/uploads/<%= openpin.image %>" alt="">
+                    <img class="w-full h-full object-cover" src="<%= openpin.image %>" alt="">
                 </div>
 
 
@@ -126,7 +126,7 @@
                             <div class="part1">
                                 <a href="/profile/<%= openpin.user._id %>">
                                     <div class="profile w-[50px] h-[50px] rounded-full overflow-hidden ">
-                                        <img class="relative  w-full h-full object-cover " src="/images/uploads/<%= openpin.user.profile %>" alt="">
+                                        <img class="relative  w-full h-full object-cover " src="<%= openpin.user.profile %>" alt="">
                                     </div>
                                 </a>
 
@@ -202,7 +202,7 @@
 
                                     <a href="/profile/<%= elem.user._id %>">
                                         <div class="commentuserprofile relative w-[30px] h-[30px] bg-[#FF3131] rounded-full overflow-hidden">
-                                            <img class="w-full h-full object-cover rounded-full" src="/images/uploads/<%= elem.user.profile %>" alt="">
+                                            <img class="w-full h-full object-cover rounded-full" src="<%= elem.user.profile %>" alt="">
 
 
                                         </div>
@@ -253,7 +253,7 @@
                     <div class="createcomment w-full relative h-[10%] pl-14 px-12 flex gap-5  ">
 
                         <div class="userprofile w-[55px] h-[55px] rounded-full  overflow-hidden ">
-                            <img class="w-full h-full object-cover" src="/images/uploads/<%= loginuser.profile %>" alt="">
+                            <img class="w-full h-full object-cover" src="<%= loginuser.profile %>" alt="">
 
                         </div>
 
