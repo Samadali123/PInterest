@@ -455,7 +455,7 @@
 
 
 
-    <script>
+    <!-- <script>
         const username = `<%= user.username %>`;
         const arr = Array.from(username)
 
@@ -615,8 +615,108 @@
 
 
         })
-    </script>
+    </script> -->
 
+
+
+    <script>
+        // Display first letter of the username
+        const username = `<%= user.username %>`;
+        document.querySelector("#firstletter").textContent = username.charAt(0);
+    
+        // Toggle settings display
+        let isSettingsVisible = false;
+        document.querySelector("#set").addEventListener("click", () => {
+            isSettingsVisible = !isSettingsVisible;
+            document.querySelector("#settings").style.display = isSettingsVisible ? "block" : "none";
+        });
+    
+        // Show search input and cancel button
+        const searchInput = document.querySelector("#searchinput");
+        const searchSection = document.querySelector(".searching");
+        const allPins = document.querySelector(".allpins");
+        const cancelButton = document.querySelector("#cancel");
+    
+        searchInput.addEventListener("click", () => {
+            document.querySelector("#search").style.display = "none";
+            cancelButton.style.display = "block";
+            searchSection.style.display = "block";
+        });
+    
+        // Reset search field and view
+        cancelButton.addEventListener("click", () => {
+            searchInput.value = "";
+            document.querySelector("#search").style.display = "block";
+            searchSection.style.display = "none";
+            document.querySelector(".searchpins").style.display = "none";
+            allPins.style.display = "flex";
+        });
+    
+        // Perform user and pin search
+        let userResults = "";
+        let pinResults = "";
+    
+        searchInput.addEventListener("input", function(event) {
+            const query = event.target.value.trim();
+    
+            if (query === "") {
+                allPins.style.display = "flex";
+                return;
+            }
+    
+            allPins.style.display = "none";
+    
+            // User search
+            axios.get(`/search/${query}`)
+                .then(response => {
+                    if (response.data.length > 0) {
+                        userResults = response.data.map(user => `
+                            <a href="/profile/${user._id}" class="searchuserdetails cursor-pointer flex gap-5 items-center px-6 py-2">
+                                <i class="ri-search-line"></i>
+                                <div class="searchuserprofile cursor-pointer w-[40px] h-[40px] rounded-full overflow-hidden">
+                                    <img class="w-full h-full object-cover" src="${user.profile}" alt="">
+                                </div>
+                                <div class="searchusertext flex flex-col leading-none">
+                                    <h3 class="cursor-pointer">${user.username}</h3>
+                                    <p class="cursor-pointer">${user.fullname}</p>
+                                </div>
+                            </a>`).join('');
+                        searchSection.innerHTML = userResults;
+                    } else {
+                        document.querySelector("#results").style.display = "block";
+                        document.querySelector(".searchpins").style.display = "block";
+                    }
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+    
+            // Pin search
+            axios.get(`/search/pin/${query}`)
+                .then(response => {
+                    if (response.data.length > 0) {
+                        pinResults = response.data.map(pin => `
+                            <a href="/openpin/${pin._id}" class="searchpincontainer inline-block mr-8">
+                                <div class="pin w-[220px] h-[320px] bg-red-600 rounded-3xl overflow-hidden">
+                                    <img class="w-full h-full object-cover" src="${pin.image}" alt="">
+                                </div>
+                                <h4 class="ml-2">${pin.title}</h4>
+                                <div class="pindets flex gap-3 items-center">
+                                    <a href="/profile/${pin.user._id}">
+                                        <div class="pinprofile w-[40px] h-[40px] rounded-full overflow-hidden">
+                                            <img class="w-full h-full object-cover rounded-full" src="${pin.user.profile}" alt="">
+                                        </div>
+                                    </a>
+                                    <a href="/profile/${pin.user._id}">${pin.user.username}</a>
+                                </div>
+                            </a>`).join('');
+                        document.querySelector(".searchpins").innerHTML = pinResults;
+                    } else {
+                        document.querySelector("#pinsearch").style.display = "block";
+                    }
+                })
+                .catch(error => console.error('Error fetching pin data:', error));
+        });
+    </script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 
