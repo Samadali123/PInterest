@@ -16,8 +16,8 @@
 
         <div class="nav w-full [15%] flex  justify-between px-8 py-6 ">
             <div class="part1 flex gap-1">
-                <div id="logo" class="x8f INd _O1 KS5 mQ8 OGJ YbY " style="height:48px;width:48px">
-                    <img class="rounded-full" src="/images/uploads/Black and White Circle Typographic Logo.png" alt="">
+                <div id="logo" class="x8f INd _O1 KS5 mQ8 OGJ YbY relative " style="height:48px;width:48px">
+                    <img class="w-[48px] h-[48px] rounded-full object-cover" src="/images/uploads/VB.jpg" alt="">
                 </div>
 
                 <div class="allbtns ">
@@ -156,10 +156,10 @@
 
                                 <% if(user.savedpins.indexOf(pin._id) === -1){ %>
 
-                                    <a id="save" data-val="/save/<%= pin._id %>" href="/save/<%= pin._id %>" class="mt-2 text-white bg-[ #A35A69] rounded-2xl px-2">save</a>
+                                    <a id="save" data-val="/save/<%= pin._id %>" href="/save/<%= pin._id %>" class="mt-2 text-white bg-[#A35A69] rounded-2xl px-2">save</a>
 
                                     <% } else { %>
-                                        <a id="unsave" data-val="/unsave/<%= pin._id %>" href="/unsave/<%= pin._id %>" class="mt-2 text-white bg-[ #A35A69] rounded-2xl px-2">saved</a>
+                                        <a id="unsave" data-val="/unsave/<%= pin._id %>" href="/unsave/<%= pin._id %>" class="mt-2 text-white bg-[#A35A69] rounded-2xl px-2">saved</a>
 
                                         <% }   %>
 
