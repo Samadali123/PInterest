@@ -152,7 +152,7 @@ router.get(`/createpin`, Isloggedin, async function (req, res, next) {
     res.render(`createpins`, { user });
 });
 
-router.post( `/uploadpin`,   upload.single(`pinimage`),  Isloggedin,  async function (req, res, next) {
+router.post( `/uploadpin`, upload.single(`pinimage`),  Isloggedin,  async function (req, res, next) {
      try {
         const loginuser = req.user;
         if(! req.file.path){

@@ -106,7 +106,7 @@
             </div>
         <% } else { %>
             <div class="savedpins ml-5 mt-2">
-                <div class="allpins bg-[#FF3131] w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
+                <div class="allpins bg-[ #A35A69] w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
                     <h3 class="text-white">No pins saved yet.</h3>
                 </div>
             </div>
@@ -116,13 +116,13 @@
             <% if(user.pins.length > 0){ %>
                 <% user.pins.forEach(function(pin){ %>
                     <a id="editpin" href="/edit/<%= pin._id %>">
-                        <div class="create-pin bg-[#FF3131] mb-2 rounded-lg overflow-hidden w-60 h-40">
+                        <div class="create-pin bg-[ #A35A69] mb-2 rounded-lg overflow-hidden w-60 h-40">
                             <img src="<%= pin.image %>" alt="" class="w-full h-full object-cover">
                         </div>
                     </a>
                 <% }) %>
             <% } else { %>
-                <div class="allpins bg-[#FF3131] w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
+                <div class="allpins bg-[#A35A69] w-60 h-44 flex items-center justify-center rounded-lg overflow-hidden">
                     <h3 class="text-white text-center">No pins created yet.</h3>
                 </div>
             <% } %>
